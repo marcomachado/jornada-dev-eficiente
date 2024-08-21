@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.util.Assert;
 
 import java.time.LocalDateTime;
@@ -15,15 +16,16 @@ public class AutorModel {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotEmpty( message = "O nome é obrigatório")
+    @NotEmpty( message = "{autor.name.required}")
     private String nome;
 
-    @NotEmpty(message = "O endereço é obrigatório")
-    @Length(max = 400, message = "A descricao deverá ter no máximo {max} caracteres")
+    @NotEmpty(message = "{autor.description.required}")
+    @Length(max = 400, message = "{autor.description.invalid}")
     private String descricao;
 
-    @Email(message = "Email com formato inválido")
-    @NotEmpty(message = "O email é obrigatório")
+    @Email(message = "{autor.email.invalid}")
+    @NotEmpty(message = "{autor.email.required}")
+    @Column(unique = true)
     private String email;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss'Z'")

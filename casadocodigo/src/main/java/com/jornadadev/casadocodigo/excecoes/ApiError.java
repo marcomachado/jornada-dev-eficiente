@@ -1,25 +1,28 @@
 package com.jornadadev.casadocodigo.excecoes;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.http.HttpStatus;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ApiError {
     private HttpStatus status;
-    private String message;
     private List<String> errors = new ArrayList<>();
+    private @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
+    LocalDateTime timestamp;
 
-    public ApiError(HttpStatus status, String message, List<String> errors) {
+    public ApiError(HttpStatus status, List<String> errors) {
         this.status = status;
-        this.message = message;
         this.errors = errors;
+        this.timestamp = LocalDateTime.now();
     }
 
-    public ApiError(HttpStatus status, String message, String error) {
+    public ApiError(HttpStatus status, String error) {
         this.status = status;
-        this.message = message;
         this.errors.add(error);
+        this.timestamp = LocalDateTime.now();
     }
 
     public HttpStatus getStatus() {
@@ -30,13 +33,6 @@ public class ApiError {
         this.status = status;
     }
 
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
 
     public List<String> getErrors() {
         return errors;

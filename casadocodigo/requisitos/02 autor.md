@@ -32,3 +32,18 @@
        * parâmetro autorDTO
          * usar @Valid
          * user @RequestBody
+
+
+## Email do autor é único
+### necessidades
+ - O email do autor precisa ser único no sistema
+### resultado esperado
+ - Erro de validação no caso de email duplicado
+
+### Tritutar
+ * AutorRepository
+   * método findByEmail
+ * AutorController
+   * método salvaAutor
+     * usar findByEmail
+     * lançar exceção caso email já exista

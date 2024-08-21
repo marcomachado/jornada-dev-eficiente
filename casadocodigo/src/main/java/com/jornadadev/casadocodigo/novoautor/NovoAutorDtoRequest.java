@@ -6,15 +6,15 @@ import org.hibernate.validator.constraints.Length;
 
 public class NovoAutorDtoRequest {
 
-    @NotEmpty( message = "O nome é obrigatório")
+    @NotEmpty( message = "{autor.name.required}")
     private String nome;
 
-    @NotEmpty(message = "O endereço é obrigatório")
-    @Length(max = 400, message = "A descricao deverá ter no máximo {max} caracteres")
+    @NotEmpty(message = "{autor.description.required}")
+    @Length(max = 400, message = "{autor.description.invalid}")
     private String descricao;
 
-    @Email(message = "Email com formato inválido")
-    @NotEmpty(message = "O email é obrigatório")
+    @Email(message = "{autor.email.invalid}")
+    @NotEmpty(message = "{autor.email.required}")
     private String email;
 
     public NovoAutorDtoRequest(@NotEmpty String nome,
